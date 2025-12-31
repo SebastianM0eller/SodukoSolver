@@ -79,6 +79,8 @@ bool Grid::IsChangeAllowed(int location)
 
 bool Grid::IsMoveLoosing(int location, TileState newState)
 {
+  if (!IsChangeAllowed(location)) return false;
+
   m_tiles[location].state = newState;
 
   if (IsLoosingVertical(location, newState) ||
