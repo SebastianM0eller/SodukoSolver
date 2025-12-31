@@ -32,6 +32,7 @@ public:
   ~Grid() = default;
 
   void ChangeState(int location, TileState newState);
+  bool IsChangeAllowed(int location);
   TileState GetState(int location);
 
 private:

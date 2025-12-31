@@ -50,3 +50,26 @@ TileState Grid::GetState(const int location)
 
   return TileState::EMPTY;
 }
+
+/**
+ * @brief Checks if changing the state of a tile at the specified location is allowed.
+ *
+ * This method determines whether a tile's state can be changed, based on the given
+ * location being valid and whether the tile is marked as "Given".
+ *
+ * @param location The location of the tile to check, should be in the range [0, 80].
+ * @return True if the change is allowed, false otherwise.
+ */
+bool Grid::IsChangeAllowed(int location)
+{
+  if (location < 0 || location > 80)
+  {
+    return false;
+  }
+  if (tiles[location].Given)
+  {
+    return false;
+  }
+
+  return true;
+}
