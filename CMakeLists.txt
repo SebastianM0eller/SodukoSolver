@@ -14,7 +14,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC include)
 
 # Source files
 target_sources(${PROJECT_NAME} PRIVATE
-        # Add source files here
+        source/grid.cpp
 )
 
 # Compile Options
