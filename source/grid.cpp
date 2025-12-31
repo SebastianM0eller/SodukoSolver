@@ -4,6 +4,9 @@
 
 #include "grid.h"
 
+#include <iostream>
+#include <ostream>
+
 /**
  * @brief Constructs a new Grid object and initializes all tiles in the grid.
  *
@@ -12,7 +15,7 @@
  */
 Grid::Grid()
 {
-  tiles.fill(Tile{TileState::EMPTY, false});
+  m_tiles.fill(Tile{TileState::EMPTY, false});
 }
 
 /**
@@ -28,7 +31,7 @@ void Grid::ChangeState(const int location, const TileState newState)
 {
   if (location >= 0 && location < 81)
   {
-    tiles[location].state = newState;
+    m_tiles[location].state = newState;
   }
 }
 
@@ -45,7 +48,7 @@ TileState Grid::GetState(const int location)
 {
   if (location < 0 || location > 80)
   {
-    return tiles[location].state;
+    return m_tiles[location].state;
   }
 
   return TileState::EMPTY;
@@ -66,10 +69,73 @@ bool Grid::IsChangeAllowed(int location)
   {
     return false;
   }
-  if (tiles[location].Given)
+  if (m_tiles[location].Given)
   {
     return false;
   }
 
   return true;
+}
+
+bool Grid::IsMoveLoosing(int location, TileState newState)
+{
+  m_tiles[location].state = newState;
+
+  if (IsLoosingVertical(location, newState) ||
+      IsLoosingHorizontal(location, newState) ||
+      IsLoosingArea(location, newState))
+  {
+    return true;
+  }
+  return false;
+}
+
+bool Grid::IsLoosingVertical(const int location, const TileState newState)
+{
+  const int column = location % 9;
+  int count = 0;
+  for (int i = 0; i < 9; i++)
+  {
+    if (m_tiles[i + column * 9].state == newState)
+    {
+      count += 1;
+    }
+  }
+  return count > 1;
+}
+
+bool Grid::IsLoosingHorizontal(const int location, const TileState newState)
+{
+  const int row = location / 9;
+  int count = 0;
+  for (int i = 0; i < 9; i++)
+  {
+    if (m_tiles[i + row * 9].state == newState)
+    {
+      count += 1;
+    }
+  }
+  return count > 1;
+}
+
+bool Grid::IsLoosingArea(const int location, const TileState newState)
+{
+  const int rowNumber = location / 9;
+  const int columnNumber = location % 9;
+
+  const int verticalAreaStart = columnNumber / 3 * 3;
+  const int horizontalAreaStart = rowNumber / 3 * 3;
+
+  int count = 0;
+  for (int row = verticalAreaStart; row < verticalAreaStart + 3; row++)
+  {
+    for (int column = horizontalAreaStart; column < horizontalAreaStart + 3; column++)
+    {
+      if (m_tiles[(row) * 9 + (column)].state == newState)
+      {
+        count += 1;
+      }
+    }
+  }
+  return count > 1;
 }

@@ -2,9 +2,10 @@
 // Created by sebastian on 12/31/25.
 //
 
-#include <iostream>
+#include "grid.h"
 
 int main()
 {
-  std::cout << "Hello World!" << std::endl;
+  Grid SodukoBoard{};
+  SodukoBoard.IsMoveLoosing(7, TileState::ONE);
 }

@@ -33,8 +33,13 @@ public:
 
   void ChangeState(int location, TileState newState);
   bool IsChangeAllowed(int location);
+  bool IsMoveLoosing(int location, TileState newState);
   TileState GetState(int location);
 
 private:
-  std::array<Tile, 81> tiles{};
+  std::array<Tile, 81> m_tiles{};
+
+  bool IsLoosingVertical(int location, TileState newState);
+  bool IsLoosingHorizontal(int location, TileState newState);
+  bool IsLoosingArea(int location, TileState newState);
 };
