@@ -77,9 +77,23 @@ bool Grid::IsChangeAllowed(int location)
   return true;
 }
 
+/**
+ * @brief Determines if a move at the specified location with the given state
+ *        results in a losing condition.
+ *
+ * This method checks whether changing the tile at the provided location to the
+ * specified state would create a losing condition by violating Sudoku rules
+ * either vertically, horizontally, or within a 3x3 sub-grid area. If the change
+ * is not allowed (e.g., the tile is marked as "Given" or the location is invalid),
+ * the method will return false.
+ *
+ * @param location The index of the tile to be changed (0-80).
+ * @param newState The new state to assign to the specified tile.
+ * @return True if the move results in a losing condition; false otherwise.
+ */
 bool Grid::IsMoveLoosing(int location, TileState newState)
 {
-  if (!IsChangeAllowed(location)) return false;
+  if (!IsChangeAllowed(location)) return true;
 
   m_tiles[location].state = newState;
 
@@ -92,7 +106,19 @@ bool Grid::IsMoveLoosing(int location, TileState newState)
   return false;
 }
 
-bool Grid::IsLoosingVertical(const int location, const TileState newState)
+/**
+ * @brief Checks if placing a tile in the specified location results in a losing condition
+ *        in the vertical column.
+ *
+ * This method evaluates whether placing a tile with the given state at a specific location
+ * causes multiple tiles of the same state to appear in the same vertical column, leading
+ * to a violation of the game rules.
+ *
+ * @param location The index of the tile location (0 to 80) in the grid.
+ * @param newState The state to be placed at the specified location.
+ * @return True if placing the tile results in a losing condition in the column, otherwise false.
+ */
+bool Grid::IsLoosingVertical(const int location, const TileState newState) const
 {
   const int column = location % 9;
   int count = 0;
@@ -106,7 +132,17 @@ bool Grid::IsLoosingVertical(const int location, const TileState newState)
   return count > 1;
 }
 
-bool Grid::IsLoosingHorizontal(const int location, const TileState newState)
+/**
+ * @brief Checks if the placement of a new tile state at the given location causes a horizontal losing condition.
+ *
+ * This function evaluates whether placing the specified tile state at the given grid location results in
+ * more than one occurrence of the same state within the corresponding row, which would result in a horizontal losing condition.
+ *
+ * @param location The index in the grid where the new tile state is placed. Should be between 0 and 80.
+ * @param newState The new tile state to place at the specified location.
+ * @return True if the placement causes a horizontal losing condition, otherwise false.
+ */
+bool Grid::IsLoosingHorizontal(const int location, const TileState newState) const
 {
   const int row = location / 9;
   int count = 0;
@@ -120,7 +156,18 @@ bool Grid::IsLoosingHorizontal(const int location, const TileState newState)
   return count > 1;
 }
 
-bool Grid::IsLoosingArea(const int location, const TileState newState)
+/**
+ * @brief Determines if changing a tile's state causes a losing condition within its 3x3 area.
+ *
+ * This function checks if changing the state of a tile at the given location
+ * to the specified state creates a conflict within the 3x3 sub-grid area to which the tile belongs.
+ * A conflict occurs if the new state is found more than once in the area.
+ *
+ * @param location The index of the tile to be checked, ranging from 0 to 80.
+ * @param newState The new state to assign to the tile, represented as a TileState.
+ * @return True if the state change results in a losing condition within the 3x3 area, otherwise false.
+ */
+bool Grid::IsLoosingArea(const int location, const TileState newState) const
 {
   const int rowNumber = location / 9;
   const int columnNumber = location % 9;

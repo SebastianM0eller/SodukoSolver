@@ -39,7 +39,7 @@ public:
 private:
   std::array<Tile, 81> m_tiles{};
 
-  bool IsLoosingVertical(int location, TileState newState);
-  bool IsLoosingHorizontal(int location, TileState newState);
-  bool IsLoosingArea(int location, TileState newState);
+  bool IsLoosingVertical(int location, TileState newState) const;
+  bool IsLoosingHorizontal(int location, TileState newState) const;
+  bool IsLoosingArea(int location, TileState newState) const;
 };
