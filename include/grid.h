@@ -31,9 +31,9 @@ public:
   Grid();
   ~Grid() = default;
 
-  void ChangeState(int location, int newState);
-  int GetState(int location);
+  void ChangeState(int location, TileState newState);
+  TileState GetState(int location);
 
 private:
-  std::array<Tile, 81> tiles;
+  std::array<Tile, 81> tiles{};
 };
