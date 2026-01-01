@@ -4,9 +4,15 @@
 
 #include "grid.h"
 #include "Solver.h"
-
 #include <iostream>
 
+/**
+ * Solves a Sudoku puzzle recursively by attempting to fill all tiles with valid values.
+ *
+ * @param SodukoBoard The current state of the Sudoku board to solve.
+ * @param tileNumber The index of the tile being processed (0-80).
+ * @return A SolverStruct containing the solved Sudoku board and a boolean indicating whether the board was successfully solved.
+ */
 SolverStruct Solve(Grid SodukoBoard, const int tileNumber)
 {
   // If we have reached the end, the soduko must be solved

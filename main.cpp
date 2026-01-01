@@ -11,5 +11,4 @@ int main()
 {
   Grid SodukoBoard{};
   SolverStruct solvedSoduko = Solve(SodukoBoard, 0);
-  std::cout << solvedSoduko.solved << std::endl;
 }
