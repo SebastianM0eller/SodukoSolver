@@ -184,10 +184,11 @@ bool Grid::IsLoosingArea(const int location, const TileState newState) const
   const int horizontalAreaStart = rowNumber / 3 * 3;
 
   int count = 0;
-  for (int row = verticalAreaStart; row < verticalAreaStart + 3; row++)
+  for (int column = verticalAreaStart; column < verticalAreaStart + 3; column++)
   {
-    for (int column = horizontalAreaStart; column < horizontalAreaStart + 3; column++)
+    for (int row = horizontalAreaStart; row < horizontalAreaStart + 3; row++)
     {
+      std::cout << row << " " << column << std::endl;
       if (m_tiles[(row) * 9 + (column)].state == newState)
       {
         count += 1;
