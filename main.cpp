@@ -2,10 +2,14 @@
 // Created by sebastian on 12/31/25.
 //
 
+#include <iostream>
+
 #include "grid.h"
+#include "Solver.h"
 
 int main()
 {
   Grid SodukoBoard{};
-  SodukoBoard.IsMoveLoosing(7, TileState::ONE);
+  SolverStruct solvedSoduko = Solve(SodukoBoard, 0);
+  std::cout << solvedSoduko.solved << std::endl;
 }

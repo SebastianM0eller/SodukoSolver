@@ -15,6 +15,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC include)
 # Source files
 target_sources(${PROJECT_NAME} PRIVATE
         source/grid.cpp
+        source/Solver.cpp
 )
 
 # Compile Options

@@ -34,6 +34,7 @@ public:
   void ChangeState(int location, TileState newState);
   bool IsChangeAllowed(int location);
   bool IsMoveLoosing(int location, TileState newState);
+  bool IsGiven(int location);
   TileState GetState(int location);
 
 private:

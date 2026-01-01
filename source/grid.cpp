@@ -54,6 +54,14 @@ TileState Grid::GetState(const int location)
   return TileState::EMPTY;
 }
 
+bool Grid::IsGiven(const int location)
+{
+  if (location < 0 || location > 80)
+  {
+    return m_tiles[location].Given;
+  }
+}
+
 /**
  * @brief Checks if changing the state of a tile at the specified location is allowed.
  *
