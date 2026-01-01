@@ -132,7 +132,7 @@ bool Grid::IsLoosingVertical(const int location, const TileState newState) const
   int count = 0;
   for (int i = 0; i < 9; i++)
   {
-    if (m_tiles[i + column * 9].state == newState)
+    if (m_tiles[i * 9 + column].state == newState)
     {
       count += 1;
     }
