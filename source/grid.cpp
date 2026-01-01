@@ -48,18 +48,18 @@ TileState Grid::GetState(const int location)
 {
   if (location < 0 || location > 80)
   {
-    return m_tiles[location].state;
+    return TileState::EMPTY;
   }
-
-  return TileState::EMPTY;
+  return m_tiles[location].state;
 }
 
 bool Grid::IsGiven(const int location)
 {
   if (location < 0 || location > 80)
   {
-    return m_tiles[location].Given;
+    return false;
   }
+  return m_tiles[location].Given;
 }
 
 /**

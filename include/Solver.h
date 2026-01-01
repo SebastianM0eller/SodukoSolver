@@ -22,6 +22,8 @@ struct SolverStruct
 {
   Grid Soduko;
   bool solved;
+
+  void PrintBoard();
 };
 
 SolverStruct Solve(Grid SodukoBoard, int tileNumber);

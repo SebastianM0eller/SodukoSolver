@@ -5,6 +5,36 @@
 #include "grid.h"
 #include "Solver.h"
 #include <iostream>
+#include <map>
+
+std::map<TileState, char> tileStateChars
+{
+  {TileState::EMPTY, '?'},
+  {TileState::ONE, '1'},
+  {TileState::TWO, '2'},
+  {TileState::THREE, '3'},
+  {TileState::FOUR, '4'},
+  {TileState::FIVE, '5'},
+  {TileState::SIX, '6'},
+  {TileState::SEVEN, '7'},
+  {TileState::EIGHT, '8'},
+  {TileState::NINE, '9'}
+};
+
+void SolverStruct::PrintBoard()
+{
+  for (int row = 0; row < 9; row++)
+  {
+    for (int column = 0; column < 9; column++)
+    {
+      TileState state = Soduko.GetState(row * 9 + column);
+      std::cout << tileStateChars.at(state);
+    }
+    std::cout << std::endl;
+  }
+  std::cout << std::endl;
+  std::cout << (solved ? "Solved!" : "Not solved!");
+}
 
 /**
  * Solves a Sudoku puzzle recursively by attempting to fill all tiles with valid values.

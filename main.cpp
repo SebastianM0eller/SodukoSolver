@@ -11,4 +11,5 @@ int main()
 {
   Grid SodukoBoard{};
   SolverStruct solvedSoduko = Solve(SodukoBoard, 0);
+  solvedSoduko.PrintBoard();
 }
