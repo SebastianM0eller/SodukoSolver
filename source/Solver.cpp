@@ -29,8 +29,10 @@ void SolverStruct::PrintBoard()
     {
       TileState state = Soduko.GetState(row * 9 + column);
       std::cout << tileStateChars.at(state);
+      if (column % 3 == 2 && column != 8) std::cout << " | ";
     }
-    std::cout << std::endl;
+    if (row % 3 == 2 && row != 8) std::cout << "\n" "----+-----+----" << "\n";
+    else std::cout << "\n";
   }
   std::cout << std::endl;
   std::cout << (solved ? "Solved!" : "Not solved!");
