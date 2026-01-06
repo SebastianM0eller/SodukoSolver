@@ -21,13 +21,13 @@ std::map<TileState, char> tileStateChars
   {TileState::NINE, '9'}
 };
 
-void SolverStruct::PrintBoard()
+void SolverStruct::PrintBoard() const
 {
   for (int row = 0; row < 9; row++)
   {
     for (int column = 0; column < 9; column++)
     {
-      TileState state = Soduko.GetState(row * 9 + column);
+      TileState state = Sodoku.GetState(row * 9 + column);
       std::cout << tileStateChars.at(state);
       if (column % 3 == 2 && column != 8) std::cout << " | ";
     }
@@ -41,20 +41,20 @@ void SolverStruct::PrintBoard()
 /**
  * Solves a Sudoku puzzle recursively by attempting to fill all tiles with valid values.
  *
- * @param SodukoBoard The current state of the Sudoku board to solve.
+ * @param SodokuBoard The current state of the Sudoku board to solve.
  * @param tileNumber The index of the tile being processed (0-80).
  * @return A SolverStruct containing the solved Sudoku board and a boolean indicating whether the board was successfully solved.
  */
-SolverStruct Solve(Grid SodukoBoard, const int tileNumber)
+SolverStruct Solve(Grid SodokuBoard, const int tileNumber)
 {
-  // If we have reached the end, the soduko must be solved
+  // If we have reached the end, the sodoku must be solved
   if (tileNumber >= 81)
-    return {SodukoBoard, true};
+    return {SodokuBoard, true};
 
   // If the square is given, we continue without altering it.
-  if (SodukoBoard.IsGiven(tileNumber))
+  if (SodokuBoard.IsGiven(tileNumber))
   {
-    return Solve(SodukoBoard, tileNumber + 1);
+    return Solve(SodokuBoard, tileNumber + 1);
   }
 
   constexpr std::array<TileState, 9> States =
@@ -67,12 +67,12 @@ SolverStruct Solve(Grid SodukoBoard, const int tileNumber)
   {
 
     // We check if it's an instant loss.
-    if (!SodukoBoard.IsMoveLoosing(tileNumber, state))
+    if (!SodokuBoard.IsMoveLoosing(tileNumber, state))
     {
 
       // If it's not, we check if it's a win, if we continue.
-      SodukoBoard.ChangeState(tileNumber, state);
-      SolverStruct result = Solve(SodukoBoard, tileNumber + 1);
+      SodokuBoard.ChangeState(tileNumber, state);
+      SolverStruct result = Solve(SodokuBoard, tileNumber + 1);
       if (result.solved)
       {
         return result;
@@ -81,5 +81,5 @@ SolverStruct Solve(Grid SodukoBoard, const int tileNumber)
   }
 
   // If none of the results result in a correct result, we return the state we got, with the false solved flag.
-  return {SodukoBoard, false};
+  return {SodokuBoard, false};
 }

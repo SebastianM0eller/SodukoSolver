@@ -4,8 +4,6 @@
 
 #include "grid.h"
 #include <fstream>
-#include <iostream>
-#include <sstream>
 
 /**
  * @brief Constructs a new Grid object and initializes all tiles in the grid.
@@ -80,7 +78,7 @@ void Grid::ChangeState(const int location, const TileState newState)
  * @param location The index of the tile (0-based) for which the state is to be retrieved.
  * @return The state of the tile if the location is valid, or TileState::EMPTY if the location is invalid.
  */
-TileState Grid::GetState(const int location)
+TileState Grid::GetState(const int location) const
 {
   if (location < 0 || location > 80)
   {
@@ -89,7 +87,7 @@ TileState Grid::GetState(const int location)
   return m_tiles[location].state;
 }
 
-bool Grid::IsGiven(const int location)
+bool Grid::IsGiven(const int location) const
 {
   if (location < 0 || location > 80)
   {
@@ -107,7 +105,7 @@ bool Grid::IsGiven(const int location)
  * @param location The location of the tile to check should be in the range [0, 80].
  * @return True if the change is allowed, false otherwise.
  */
-bool Grid::IsChangeAllowed(int location)
+bool Grid::IsChangeAllowed(const int location) const
 {
   if (location < 0 || location > 80)
   {
@@ -135,15 +133,15 @@ bool Grid::IsChangeAllowed(int location)
  * @param newState The new state to assign to the specified tile.
  * @return True if the move results in a losing condition; false otherwise.
  */
-bool Grid::IsMoveLoosing(int location, TileState newState)
+bool Grid::IsMoveLoosing(const int location, const TileState newState)
 {
   if (!IsChangeAllowed(location)) return true;
 
   m_tiles[location].state = newState;
 
-  if (IsLoosingVertical(location, newState) ||
-      IsLoosingHorizontal(location, newState) ||
-      IsLoosingArea(location, newState))
+  if (IsLosingVertical(location, newState) ||
+      IsLosingHorizontal(location, newState) ||
+      IsLosingArea(location, newState))
   {
     return true;
   }
@@ -162,7 +160,7 @@ bool Grid::IsMoveLoosing(int location, TileState newState)
  * @param newState The state to be placed at the specified location.
  * @return True if placing the tile results in a losing condition in the column, otherwise false.
  */
-bool Grid::IsLoosingVertical(const int location, const TileState newState) const
+bool Grid::IsLosingVertical(const int location, const TileState newState) const
 {
   const int column = location % 9;
   int count = 0;
@@ -186,7 +184,7 @@ bool Grid::IsLoosingVertical(const int location, const TileState newState) const
  * @param newState The new tile state to place at the specified location.
  * @return True if the placement causes a horizontal losing condition, otherwise false.
  */
-bool Grid::IsLoosingHorizontal(const int location, const TileState newState) const
+bool Grid::IsLosingHorizontal(const int location, const TileState newState) const
 {
   const int row = location / 9;
   int count = 0;
@@ -211,7 +209,7 @@ bool Grid::IsLoosingHorizontal(const int location, const TileState newState) con
  * @param newState The new state to assign to the tile, represented as a TileState.
  * @return True if the state change results in a losing condition within the 3x3 area, otherwise false.
  */
-bool Grid::IsLoosingArea(const int location, const TileState newState) const
+bool Grid::IsLosingArea(const int location, const TileState newState) const
 {
   const int rowNumber = location / 9;
   const int columnNumber = location % 9;

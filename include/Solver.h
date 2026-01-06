@@ -20,10 +20,10 @@
  */
 struct SolverStruct
 {
-  Grid Soduko;
+  Grid Sodoku;
   bool solved;
 
-  void PrintBoard();
+  void PrintBoard() const;
 };
 
-SolverStruct Solve(Grid SodukoBoard, int tileNumber);
+SolverStruct Solve(Grid SodokuBoard, int tileNumber);

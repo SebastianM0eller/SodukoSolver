@@ -14,7 +14,14 @@ int main()
   std::cout << "Enter a Sudoku board (9x9 numbers) as a continuous string: ";
   std::cin >> boardInput;
 
-  Grid SodukoBoard{boardInput};
-  SolverStruct solvedSoduko = Solve(SodukoBoard, 0);
-  solvedSoduko.PrintBoard();
+  while (boardInput.size() != 81)
+  {
+    std::cout << "\nInvalid input. Please enter a 9x9 string: ";
+    boardInput.clear();
+    std::cin >> boardInput;
+  }
+
+  const Grid SodokuBoard{boardInput};
+  SolverStruct solvedSodoku = Solve(SodokuBoard, 0);
+  solvedSodoku.PrintBoard();
 }

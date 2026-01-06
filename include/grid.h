@@ -34,15 +34,15 @@ public:
   ~Grid() = default;
 
   void ChangeState(int location, TileState newState);
-  bool IsChangeAllowed(int location);
+  bool IsChangeAllowed(int location) const;
   bool IsMoveLoosing(int location, TileState newState);
-  bool IsGiven(int location);
-  TileState GetState(int location);
+  bool IsGiven(int location) const;
+  TileState GetState(int location) const;
 
 private:
   std::array<Tile, 81> m_tiles{};
 
-  bool IsLoosingVertical(int location, TileState newState) const;
-  bool IsLoosingHorizontal(int location, TileState newState) const;
-  bool IsLoosingArea(int location, TileState newState) const;
+  bool IsLosingVertical(int location, TileState newState) const;
+  bool IsLosingHorizontal(int location, TileState newState) const;
+  bool IsLosingArea(int location, TileState newState) const;
 };
