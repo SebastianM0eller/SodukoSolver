@@ -4,6 +4,7 @@
 
 #pragma once
 #include <array>
+#include <string>
 
 enum class TileState
 {
@@ -29,6 +30,7 @@ class Grid
 {
 public:
   Grid();
+  Grid(const std::string& BoardString);
   ~Grid() = default;
 
   void ChangeState(int location, TileState newState);

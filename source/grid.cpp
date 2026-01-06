@@ -3,9 +3,9 @@
 //
 
 #include "grid.h"
-
+#include <fstream>
 #include <iostream>
-#include <ostream>
+#include <sstream>
 
 /**
  * @brief Constructs a new Grid object and initializes all tiles in the grid.
@@ -16,6 +16,40 @@
 Grid::Grid()
 {
   m_tiles.fill(Tile{TileState::EMPTY, false});
+}
+
+/**
+ * @brief Constructs a new Grid object and initializes the tiles based on the given board string.
+ *
+ * This constructor sets up the grid by parsing the board string and assigning the corresponding
+ * tile state and 'given' status to each tile. Tiles represented by digits (1-9) are marked as
+ * 'given' with the respective state, while all other characters result in tiles being set to
+ * TileState::EMPTY and not marked as 'given'.
+ *
+ * @param BoardString A string representation of the initial state of the grid, where each
+ * character corresponds to a tile. Digits (1-9) represent specific tile states marked as 'given',
+ * and any other character represents an empty tile.
+ *
+ * @warning The string in the file needs to be the exact size of the board.
+ */
+Grid::Grid(const std::string& BoardString)
+{
+  for (int i = 0; i < BoardString.size(); i++)
+  {
+    switch (BoardString[i])
+    {
+      case '1': m_tiles[i] = {TileState::ONE, true}; break;
+      case '2': m_tiles[i] = {TileState::TWO, true}; break;
+      case '3': m_tiles[i] = {TileState::THREE, true}; break;
+      case '4': m_tiles[i] = {TileState::FOUR, true}; break;
+      case '5': m_tiles[i] = {TileState::FIVE, true}; break;
+      case '6': m_tiles[i] = {TileState::SIX, true}; break;
+      case '7': m_tiles[i] = {TileState::SEVEN, true}; break;
+      case '8': m_tiles[i] = {TileState::EIGHT, true}; break;
+      case '9': m_tiles[i] = {TileState::NINE, true}; break;
+      default: m_tiles[i] = {TileState::EMPTY, false};
+    }
+  }
 }
 
 /**
@@ -68,7 +102,7 @@ bool Grid::IsGiven(const int location)
  * This method determines whether a tile's state can be changed, based on the given
  * location being valid and whether the tile is marked as "Given".
  *
- * @param location The location of the tile to check, should be in the range [0, 80].
+ * @param location The location of the tile to check should be in the range [0, 80].
  * @return True if the change is allowed, false otherwise.
  */
 bool Grid::IsChangeAllowed(int location)
