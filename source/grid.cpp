@@ -34,6 +34,8 @@ Grid::Grid()
  */
 Grid::Grid(const std::string& BoardString)
 {
+  m_tiles.fill(Tile{TileState::EMPTY, false}); // To avoid uninitialized tiles.
+
   for (int i = 0; i < BoardString.size(); i++)
   {
     switch (BoardString[i])
