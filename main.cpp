@@ -11,12 +11,12 @@ int main()
 {
   std::string boardInput;
 
-  std::cout << "Enter a Sudoku board (9x9 numbers) as a continuous string: ";
+  std::cout << "Enter a Sudoku board (9x9 numbers) as a continuous string: \n";
   std::cin >> boardInput;
 
   while (boardInput.size() != 81)
   {
-    std::cout << "\nInvalid input. Please enter a 9x9 string: ";
+    std::cout << "\nInvalid input. Please enter a 9x9 string: \n";
     boardInput.clear();
     std::cin >> boardInput;
   }

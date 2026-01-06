@@ -35,7 +35,7 @@ void SolverStruct::PrintBoard() const
     else std::cout << "\n";
   }
   std::cout << std::endl;
-  std::cout << (solved ? "Solved!" : "Not solved!");
+  std::cout << (solved ? "Solved!\n" : "Not solved!\n");
 }
 
 /**
